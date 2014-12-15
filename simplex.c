@@ -35,8 +35,7 @@
 *    Points a block of memory of size >= 3*ndims*sizeof(double) which contains
 *    information defining two boundaries for the simplex.  See comments in
 *    simplex.h for a full description of how to define these boundaries.
-*
-*    bounds can also be NULL in which case no boundaries are enforced.
+*    Bounds can also be NULL in which case no boundaries are enforced.
 * @param func
 *    *func() is the cost function that each point of the simplex will be 
 *    evaulated at.  Its arguments are the dimension of the simplex and
@@ -136,7 +135,7 @@ void destroy_simplex(struct simplex *simpx)
 
 
 /***************************************************************************//**
-* Find lowest, highest, and 2nd highest vals in simplex 
+* Update lowest, highest, and 2nd highest vals in simplex 
 *
 * Function iterates through each point in the simplex to determine the indices
 * of the highest, 2nd highest and lowest points.  These indices are updated in

@@ -33,12 +33,12 @@ struct simplex {
 *    is used when source = 1 to determine where the initial simplex may be  
 *    located.  The soft boundary range is also used when bringing the simplex 
 *    back within a hard boundary.  The hard boundary is not to be crossed by  
-*    the simplex at all and must completely contain the soft boundary region. 
-*    Boundaries are not strictly enforced and are only checked when the  
-*    function check_borders() is called.  If borders need to be enforced make 
-*    sure to call check_borders() before calling replace_pt(). 
+*    the simplex at all.  Boundaries are not strictly enforced and are only 
+*    checked when the function check_borders() is called.  If borders need to be 
+*    enforced make sure to call check_borders() before calling replace_pt(). 
+*
 *    Boundaries are specified using three "rows" of ndims each.   
-*    The first row which starts at borders[0] is expecte to contain integer  
+*    The first row which starts at borders[0] is expected to contain integer  
 *    values of 0, 1, 2 or 3 (how the program handles other values is  
 *    undetermined).  These values have the following meanings: 
 *        0:  Both the high and low values are hard boundaries 

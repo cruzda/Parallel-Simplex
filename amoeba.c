@@ -6,27 +6,31 @@
  *
  * This function uses the same logic as the code in section 10.5 of Numerical
  * Recipes but was rewritten so be more clear and to be parallelizable.
- * The code uses 4 threads to calculate each potential outcome in parallel.
+ *
+ * The four simplex actions are each run in their own thread:
+         - reflect (the highest point across the opposite face)
+         - extend ( /reflec
+         - contract
+         - reflect+contract
  * The threads then rejoin and one thread is used to determine which new node
  * should replace the simplex's high point.  If none of the 4 possibilities 
- * are improvments then the main thread performs an all contraction serially
+ * are improvments then the main thread performs an all contraction serially.
  *
  * FIXME -- Crossings code needs tested
  * FIXME -- 3*NVD Magic Number: Should this be an argument?  Why 3*?
  * FIXME -- Should NMAX be an argument?
  *
- * @param simpx 
+ * param simpx 
  *     The simplex which will be used to find a minimum of the function funk
- * @param ftol
+ * param ftol
  *     Function returns when the ratio of the range of function values to the 
  *     sum of the highest and lowest values is less than half this value
- * @param funk
+ * param funk
  *     *funk() is the cost function that each point of the simplex will be
  *     evaluated at.  Its arguments are the dimension of the simplex and
  *     a pointer to the paramaters at which it should be evaluated.
  *
- * @return the index of the lowest point in the simplex
- *     function
+ * return the index of the lowest point in the simplex function
 *******************************************************************************/ 
 int amoeba_omp (
     struct simplex * const simpx, 
@@ -256,10 +260,10 @@ int amotry (
   int ihi     =  simpx->ihi;
   double *vals =  simpx->vals;
 
+  assert( ndims );
   for (dimIt = 0; dimIt < ndims; dimIt++)
   {
     /* Find centroid of the points < vals[ihi] in the current dimension */
-    assert( ndims );
     p_bar = ( simpx->psum[dimIt] - simpx->points[ ihi * ndims + dimIt ] ) 
             / ndims;
 
